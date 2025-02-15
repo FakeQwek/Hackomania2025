@@ -1,8 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetSupport</title>
+    <link href="./styles.css" rel="stylesheet">
 </head>
-<body>
-    <p>Test</p>
-
+<body class="w-screen h-screen flex justify-center items-center">
+    <section>
+        <div id="login-box" class="flex flex-col items-center rounded-md w-sm h-120 drop-shadow-md border-2 mb-8">
+            <div class="w-full flex justify-center bg-white h-30 border-b-2">
+                <h1 class="mb-9 mt-8 font-medium text-3xl color-white pt-2 pb-2 pl-6 pr-6 rounded">NetSupport</h1>
+            </div>
+            <p class="mr-auto ml-15 mt-7">Email</p>
+            <input type="email" placeholder="Enter your email..." class="m-2 border-2 p-1 rounded w-70 bg-white drop-shadow-sm" id="email-box">
+            <p class="mr-auto ml-15 mt-5">Password</p>
+            <input type="password" placeholder="Enter your password..." class="m-2 border-2 p-1 rounded w-70 bg-white drop-shadow-sm" id="password-box">
+            <input type="submit" class="bg-white p-2 w-45 mt-8 rounded border-2 drop-shadow-md hover:bg-gray-100 hover:cursor-pointer mb-6" id="submit-box">
+            <p>Don't have an account? <u id="register-button" class="hover:cursor-pointer hover:gray-100">Sign Up</u></p>
+        </div>
+    </section>
+    <script src="./src/scripts/login.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </body>
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</html>

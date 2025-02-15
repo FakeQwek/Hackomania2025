@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import {getLocationsByRegion, getLocation, postLocation} from './scripts/controllers/locationController.js';
+import {getLocationsByRegion, getLocation, postLocation} from './scripts/controllers/userController.js';
 
 
 
