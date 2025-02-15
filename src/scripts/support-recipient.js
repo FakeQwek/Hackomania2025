@@ -41,42 +41,8 @@ function renderDonorView() {
     `
     );
 
-    // Support Sarah's Journey Card
-    const supportCard = createCard(
-        "Support Sarah's Journey",
-        `
-        <div class="flex gap-2 mb-4">
-            <button id="oneTimeBtn" class="btn-primary px-4 py-2 bg-blue-500 text-white rounded-lg">One-time</button>
-            <button id="recurringBtn" class="btn-secondary px-4 py-2 bg-gray-200 text-black rounded-lg">Monthly</button>
-        </div>
-        <div class="grid grid-cols-3 gap-2 mb-4">
-            ${[10, 25, 50]
-                .map(
-                    (amount) => `
-                <button class="btn px-4 py-2 rounded-lg ${
-                    state.donationAmount === amount
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200 text-black"
-                }" data-amount="${amount}">
-                    $${amount}
-                </button>
-            `
-                )
-                .join("")}
-        </div>
-        <input id="customAmount" type="number" class="w-full p-2 border rounded-lg mb-4" value="${
-            state.donationAmount
-        }">
-        <textarea class="w-full p-2 border rounded-lg" rows="3" placeholder="Your message..."></textarea>
-        <button id="donateBtn" class="btn-primary w-full px-4 py-2 bg-green-500 text-white rounded-lg mt-4">
-            Donate $${state.donationAmount}
-        </button>
-    `
-    );
-
     // Append both cards into the center column
     centerColumn.appendChild(profileCard);
-    centerColumn.appendChild(supportCard);
 
     // Right Sidebar (Journey Progress) - **Now Smaller**
     const sidebar = document.createElement("div");
