@@ -6,6 +6,11 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        
+        Email: {
+            type: String,
+            required: true,
+        },
 
         Password: {
             type: String,
@@ -31,8 +36,6 @@ const UserSchema = mongoose.Schema(
             type: Number,
             required: true,
         }
-
-
         
     }, {
         timestamps: true,

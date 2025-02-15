@@ -27,9 +27,9 @@ export const getUsers = async (req,res) => {
 }
 
 export const getUser = async (req,res) => {
-    const name = req.params["name"];
+    const name = req.params["email"];
     try {
-        const user = await Users.findOne({"Username" : name});
+        const user = await Users.findOne({"Email" : email});
         console.log(user);
         res.status(200).json({success: true, data: user});
     }
@@ -38,30 +38,24 @@ export const getUser = async (req,res) => {
     }
 }
 
-/*
-export const postLocation = async(req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
-    const author = req.body.author;
-    const rating = req.body.rating;
-    const region = req.body.region;
-    const image = req.body.region;
-    console.log(title + " " + description + " " + author + " " + rating + " " + region);
 
+export const postUser = async(req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+  
     try {
-        const location = await Locations.create({
-            Title: title,
-            Description: description,
-            Author: author,
-            Rating: rating,
-            Region: region
+        const location = await Users.create({
+            Username: title,
+            Password: description,
+            Image:"None",
+            Raised: 0,
+            Goal: 0,
+            Supporters: 0
         });
         console.log(location);
         res.status(200).json({success: true, data: location});
     }
     catch(error) {
-        console.log(title + " " + description + " " + author + " " + rating + " " + region);
         res.status(500).json({success: false, message: "Server Error"});
     }
 }
-*/
