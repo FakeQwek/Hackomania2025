@@ -27,7 +27,7 @@ export const getUsers = async (req,res) => {
 }
 
 export const getUser = async (req,res) => {
-    const name = req.params["email"];
+    const email = req.params["email"];
     try {
         const user = await Users.findOne({"Email" : email});
         console.log(user);
