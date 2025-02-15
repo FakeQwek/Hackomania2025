@@ -8,7 +8,6 @@ submitButton.addEventListener("click", () => {
     if(email == "Thomason" && pass == "password123") {
         console.log("Should redirect");
         window.location.href= "../../homepage.html";
-     
     }
     else {
         window.alert("Invalid Credentials!");
