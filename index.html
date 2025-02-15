@@ -1,26 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetSupport</title>
-    <link href="./styles.css" rel="stylesheet">
-</head>
-<body class="w-screen h-screen flex justify-center items-center">
-    <section>
-        <div id="login-box" class="flex flex-col items-center rounded-md w-sm h-120 drop-shadow-md border-2 mb-8">
-            <div class="w-full flex justify-center bg-white h-30 border-b-2">
-                <h1 class="mb-9 mt-8 font-medium text-3xl color-white pt-2 pb-2 pl-6 pr-6 rounded">NetSupport</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fundflow - Support Creators</title>
+        <meta
+            name="description"
+            content="Support creators and track offline activities"
+        />
+        <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    </head>
+    <body class="bg-gray-50">
+        <header class="bg-white border-b border-gray-200">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-xl font-semibold text-gray-900">
+                        Discover
+                    </h1>
+                    <div class="flex items-center gap-4">
+                        <button class="rounded-lg p-2 hover:bg-gray-100">
+                            <svg
+                                class="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    d="M12 2L8 6H4v4l-4 4 4 4v4h4l4 4 4-4h4v-4l4-4-4-4V6h-4l-4-4z"
+                                />
+                            </svg>
+                        </button>
+                        <button class="rounded-lg p-2 hover:bg-gray-100">
+                            <svg
+                                class="w-5 h-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <p class="mr-auto ml-15 mt-7">Email</p>
-            <input type="email" placeholder="Enter your email..." class="m-2 border-2 p-1 rounded w-70 bg-white drop-shadow-sm" id="email-box">
-            <p class="mr-auto ml-15 mt-5">Password</p>
-            <input type="password" placeholder="Enter your password..." class="m-2 border-2 p-1 rounded w-70 bg-white drop-shadow-sm" id="password-box">
-            <input type="submit" class="bg-white p-2 w-45 mt-8 rounded border-2 drop-shadow-md hover:bg-gray-100 hover:cursor-pointer mb-6" id="submit-box">
-            <p>Don't have an account? <u id="register-button" class="hover:cursor-pointer hover:gray-100">Sign Up</u></p>
-        </div>
-    </section>
-    <script src="./src/scripts/login.js"></script>
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-</body>
+        </header>
+
+        <main class="mx-auto max-w-screen-lg px-4 md:px-6 py-6 mt-10">
+            <div
+                class="grid grid-cols-2 gap-x-0 md:gap-x-2 gap-y-6 items-start w-full"
+                id="creators-grid"
+            >
+                <!-- Creator cards will be inserted here via JavaScript -->
+            </div>
+        </main>
+
+        <!-- Creator card template -->
+        <template id="creator-card-template" class="mt-16">
+            <div
+                class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden w-full mr-8"
+            >
+                <div class="w-full bg-gray-100 relative h-[220px] md:h-[260px]">
+                    <img
+                        src=""
+                        alt=""
+                        class="w-full h-full object-cover rounded-t-xl"
+                    />
+                    <div
+                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary absolute top-2 right-2"
+                    ></div>
+                </div>
+                <div class="p-3 md:p-4 space-y-2">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <h3
+                                class="font-medium text-gray-900 text-sm md:text-base"
+                            ></h3>
+                            <p class="text-xs md:text-sm text-gray-600"></p>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <div
+                            class="flex justify-between mb-1 text-xs text-gray-600"
+                        >
+                            <span class="raised"></span>
+                            <span class="goal"></span>
+                        </div>
+                        <div
+                            class="h-2 bg-gray-200 rounded-full overflow-hidden"
+                        >
+                            <div
+                                class="progress-bar h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                            ></div>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center justify-between text-xs text-gray-600"
+                    >
+                        <div class="flex items-center gap-1">
+                            <svg
+                                class="w-3 h-3 md:w-4 md:h-4"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                />
+                            </svg>
+                            <span class="supporters"></span> supporters
+                        </div>
+                        <button
+                            class="inline-flex items-center justify-center rounded-md text-xs md:text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/90 h-8 px-3 py-1 md:h-9 md:px-4 md:py-2"
+                        >
+                            Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <script>
+            // Mock data
+            const mockCreators = [
+                {
+                    id: 1,
+                    name: "Sarah Johnson",
+                    description:
+                        "Digital artist creating unique NFT collections",
+                    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+                    raised: 2500,
+                    goal: 5000,
+                    supporters: 128,
+                },
+                {
+                    id: 2,
+                    name: "Mike Chen",
+                    description:
+                        "Indie game developer working on next-gen VR experiences",
+                    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+                    raised: 8900,
+                    goal: 10000,
+                    supporters: 342,
+                },
+                {
+                    id: 3,
+                    name: "Emma Wilson",
+                    description:
+                        "Environmental photographer documenting climate change",
+                    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+                    raised: 3200,
+                    goal: 7500,
+                    supporters: 215,
+                },
+            ];
+
+            // Function to format currency
+            function formatCurrency(amount) {
+                return `$${amount.toLocaleString()}`;
+            }
+
+            // Function to create creator cards
+            function createCreatorCard(creator) {
+                const template = document.getElementById(
+                    "creator-card-template"
+                );
+                const card = template.content.cloneNode(true);
+
+                // Set image and alt text
+                const img = card.querySelector("img");
+                img.src = creator.image;
+                img.alt = creator.name;
+
+                // Set name and description
+                card.querySelector("h3").textContent = creator.name;
+                card.querySelector("p").textContent = creator.description;
+
+                // Set progress bar
+                card.querySelector(".raised").textContent = formatCurrency(
+                    creator.raised
+                );
+                card.querySelector(".goal").textContent = formatCurrency(
+                    creator.goal
+                );
+                const percentage = Math.min(
+                    (creator.raised / creator.goal) * 100,
+                    100
+                );
+                card.querySelector(
+                    ".progress-bar"
+                ).style.width = `${percentage}%`;
+
+                // Set supporters
+                card.querySelector(".supporters").textContent =
+                    creator.supporters;
+
+                // Add click handler to support button
+                const supportButton = card.querySelector("button");
+                supportButton.addEventListener("click", () => {
+                    window.location.href = `/fund/${creator.id}`;
+                });
+
+                return card;
+            }
+
+            // Render creator cards
+            const creatorsGrid = document.getElementById("creators-grid");
+            mockCreators.forEach((creator) => {
+                creatorsGrid.appendChild(createCreatorCard(creator));
+            });
+        </script>
+
+        <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+        <script
+            src="https://cdn.gpteng.co/gptengineer.js"
+            type="module"
+        ></script>
+    </body>
 </html>
