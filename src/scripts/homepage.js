@@ -1,3 +1,11 @@
+const activityButton = document.getElementById("activity-button");
+const logoutButton = document.getElementById("logout-button");
+activityButton.addEventListener("click", () => {
+    window.location.href = "./activity.html";
+});
+logoutButton.addEventListener("click", ()=> {
+    window.location.href = "./index.html";
+});
 
 async function getUsers(){
     const url = "http://localhost:3200/users";
@@ -10,7 +18,6 @@ async function getUsers(){
 
           console.log("Beginning of stuff");
           for(let i = 0; i < json["data"].length; i++) {
-            console.log(json["data"][i]);
             creatorsGrid.appendChild(createCreatorCard(json["data"][i]));
           }
        
@@ -19,6 +26,8 @@ async function getUsers(){
           console.error(error.message);
         }
 }
+
+
 
 getUsers();
 
@@ -67,7 +76,8 @@ function createCreatorCard(creator) {
     // Add click handler to support button
     const supportButton = card.querySelector("button");
     supportButton.addEventListener("click", () => {
-        window.location.href = `/fund/${creator.id}`;
+        localStorage.setItem("addicteeName", creator.name);
+        window.location.href = "./support.html";
     });
 
     return card;
