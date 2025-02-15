@@ -1,5 +1,5 @@
 
-import Locations from "../models/user.js";
+import Users from "../models/user.js";
 /*
 export const getLocationsByRegion = async (req, res) => {
     try {
@@ -15,10 +15,21 @@ export const getLocationsByRegion = async (req, res) => {
 }
 */
 
+export const getUsers = async (req,res) => {
+    try {
+        const user = await Users.find();
+        console.log(user);
+        res.status(200).json({success: true, data: user});
+    }
+    catch (error) {
+        res.status(500).json({success: false, message: "Server Error"});
+    }
+}
+
 export const getUser = async (req,res) => {
     const name = req.params["name"];
     try {
-        const user = await Locations.findOne({"Username" : name});
+        const user = await Users.findOne({"Username" : name});
         console.log(user);
         res.status(200).json({success: true, data: user});
     }

@@ -1,11 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import {getLocationsByRegion, getLocation, postLocation} from './scripts/controllers/userController.js';
+import {getUsers, getUser} from './scripts/controllers/userController.js';
 
-
-
-router.get("/getLocationsByRegion/:region", getLocationsByRegion);
-router.get("/getLocation/:title", getLocation);
-router.post("/postLocation", postLocation);
+router.get("/user/:name", getUser);
+router.get("/users", getUsers);
 
 export default router;

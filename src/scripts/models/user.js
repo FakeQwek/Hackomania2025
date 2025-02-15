@@ -11,13 +11,35 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+
+        Image: {
+            type: String,
+            required: true,
+        },
+
+        Raised: {
+            type: Number,
+            required: true,
+        },
+
+        Goal: {
+            type: Number,
+            required: true,
+        },
+
+        Supporters: {
+            type: Number,
+            required: true,
+        }
+
+
         
     }, {
         timestamps: true,
-        collection: 'User'
+        collection: 'Addictee'
     });
 
-const Locations = mongoose.model("Users", UsersSchema);
+const Users = mongoose.model("Addictee", UserSchema);
 
 export default Users;
 

@@ -14,7 +14,7 @@
         <header class="bg-white border-b border-gray-200">
             <div class="container mx-auto px-4 py-6">
                 <div class="flex items-center justify-between">
-                    <h1 class="text-xl font-semibold text-gray-900 ml-4">
+                    <h1 class="text-xl font-semibold text-gray-900 ml-8">
                         NetSupport
                     </h1>
                 </div>
@@ -23,7 +23,7 @@
 
         <main class="mx-auto max-w-screen-lg px-4 md:px-6 py-6 mt-10">
             <div
-                class="grid grid-cols-2 gap-x-0 md:gap-x-2 gap-y-6 items-start w-full"
+                class="grid grid-cols-2 gap-x-0 md:gap-x-15 gap-y-15 items-start w-full"
                 id="creators-grid"
             >
                 <!-- Creator cards will be inserted here via JavaScript -->
@@ -31,7 +31,7 @@
         </main>
 
         <!-- Creator card template -->
-        <template id="creator-card-template" class="mt-16">
+        <template id="creator-card-template" class="mt-16 ">
             <div
                 class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden w-full mr-8"
             >
@@ -65,7 +65,7 @@
                             class="h-2 bg-gray-200 rounded-full overflow-hidden"
                         >
                             <div
-                                class="progress-bar h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                                class="progress-bar h-full bg-primary rounded-full transition-all duration-300 ease-out bg-emerald-600"
                             ></div>
                         </div>
                     </div>
@@ -97,101 +97,11 @@
             </div>
         </template>
 
-        <script>
-            // Mock data
-            const mockCreators = [
-                {
-                    id: 1,
-                    name: "Sarah Johnson",
-                    description:
-                        "Digital artist creating unique NFT collections",
-                    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-                    raised: 2500,
-                    goal: 5000,
-                    supporters: 128,
-                },
-                {
-                    id: 2,
-                    name: "Mike Chen",
-                    description:
-                        "Indie game developer working on next-gen VR experiences",
-                    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-                    raised: 8900,
-                    goal: 10000,
-                    supporters: 342,
-                },
-                {
-                    id: 3,
-                    name: "Emma Wilson",
-                    description:
-                        "Environmental photographer documenting climate change",
-                    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-                    raised: 3200,
-                    goal: 7500,
-                    supporters: 215,
-                },
-            ];
-
-            // Function to format currency
-            function formatCurrency(amount) {
-                return `$${amount.toLocaleString()}`;
-            }
-
-            // Function to create creator cards
-            function createCreatorCard(creator) {
-                const template = document.getElementById(
-                    "creator-card-template"
-                );
-                const card = template.content.cloneNode(true);
-
-                // Set image and alt text
-                const img = card.querySelector("img");
-                img.src = creator.image;
-                img.alt = creator.name;
-
-                // Set name and description
-                card.querySelector("h3").textContent = creator.name;
-                card.querySelector("p").textContent = creator.description;
-
-                // Set progress bar
-                card.querySelector(".raised").textContent = formatCurrency(
-                    creator.raised
-                );
-                card.querySelector(".goal").textContent = formatCurrency(
-                    creator.goal
-                );
-                const percentage = Math.min(
-                    (creator.raised / creator.goal) * 100,
-                    100
-                );
-                card.querySelector(
-                    ".progress-bar"
-                ).style.width = `${percentage}%`;
-
-                // Set supporters
-                card.querySelector(".supporters").textContent =
-                    creator.supporters;
-
-                // Add click handler to support button
-                const supportButton = card.querySelector("button");
-                supportButton.addEventListener("click", () => {
-                    window.location.href = `/fund/${creator.id}`;
-                });
-
-                return card;
-            }
-
-            // Render creator cards
-            const creatorsGrid = document.getElementById("creators-grid");
-            mockCreators.forEach((creator) => {
-                creatorsGrid.appendChild(createCreatorCard(creator));
-            });
-        </script>
-
         <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
         <script
             src="https://cdn.gpteng.co/gptengineer.js"
             type="module"
         ></script>
+        <script src="./src/scripts/homepage.js"></script>
     </body>
 </html>
