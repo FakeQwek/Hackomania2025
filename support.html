@@ -1,312 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support Journey</title>
-    <style>
-        /* Core styles */
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 1.5rem;
-        }
-        
-        .grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-        }
-        
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: #f3f4f6;
-            color: #374151;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 1rem;
-            background: #e5e7eb;
-            border-radius: 9999px;
-            overflow: hidden;
-        }
-        
-        .progress-bar-fill {
-            height: 100%;
-            background: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        
-        /* Grid layouts */
-        @media (min-width: 1024px) {
-            .donor-grid {
-                grid-template-columns: repeat(3, 1fr);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Support Journey</title>
+        <link rel="stylesheet" href="styles.css" />
+        <style>
+            /* Core styles */
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 1.5rem;
             }
-            
-            .recipient-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+            .grid {
+                display: grid;
+                gap: 1.5rem;
             }
-        }
-        
-        /* Additional utility classes */
-        .mb-4 { margin-bottom: 1rem; }
-        .space-y-4 > * + * { margin-top: 1rem; }
-        .flex { display: flex; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .gap-2 { gap: 0.5rem; }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <div id="app">
-        <!-- View Toggle -->
-        <div class="bg-white shadow-sm mb-4">
-            <div class="container">
-                <div class="flex justify-center gap-2">
-                    <button id="donorViewBtn" class="btn btn-primary">Donor View</button>
-                    <button id="recipientViewBtn" class="btn btn-secondary">Recipient View</button>
+
+            .card {
+                background: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+            }
+
+            .journey_card {
+                background: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-primary {
+                background: #3b82f6;
+                color: white;
+            }
+
+            .btn-secondary {
+                background: #f3f4f6;
+                color: #374151;
+            }
+
+            .progress-bar {
+                width: 100%;
+                height: 1rem;
+                background: #e5e7eb;
+                border-radius: 9999px;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background: #3b82f6;
+                transition: width 0.3s ease;
+            }
+
+            /* Grid layouts */
+            @media (min-width: 1024px) {
+                .donor-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+
+                .recipient-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            /* Additional utility classes */
+            .mb-4 {
+                margin-bottom: 1rem;
+            }
+            .space-y-4 > * + * {
+                margin-top: 1rem;
+            }
+            .flex {
+                display: flex;
+            }
+            .items-center {
+                align-items: center;
+            }
+            .justify-between {
+                justify-content: space-between;
+            }
+            .gap-2 {
+                gap: 0.5rem;
+            }
+        </style>
+        <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+        <script src="./src/scripts/support.js" defer></script>
+    </head>
+    <body class="bg-gray-50">
+        <div id="app">
+            <!-- View Toggle -->
+            <div class="bg-white shadow-sm mb-4 fixed w-full top-0 left-0 z-10">
+                <div class="max-w-4xl mx-auto px-6 py-4">
+                    <div class="flex justify-center gap-4">
+                        <button
+                            id="donorViewBtn"
+                            class="btn btn-primary bg-blue-500 text-white px-4 py-2 rounded-lg"
+                        >
+                            Donor View
+                        </button>
+                        <button
+                            id="recipientViewBtn"
+                            class="btn btn-secondary bg-gray-200 text-black px-4 py-2 rounded-lg"
+                        >
+                            Recipient View
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <!-- Main Content -->
+            <div
+                id="mainContent"
+                class="max-w-4xl mx-auto px-6 pt-[100px]"
+            ></div>
+            <!-- Pushes content below navbar -->
         </div>
-
-        <!-- Main Content -->
-        <div id="mainContent" class="container"></div>
-    </div>
-
-    <script>
-        // State management
-        const state = {
-            view: 'donor',
-            donationType: 'one-time',
-            donationAmount: 25,
-            showThankYouModal: false,
-            donationData: [
-                { name: 'Jan', amount: 300 },
-                { name: 'Feb', amount: 450 },
-                { name: 'Mar', amount: 600 },
-                { name: 'Apr', amount: 750 },
-            ],
-            milestones: [
-                { amount: 500, title: "First counseling session", achieved: true },
-                { amount: 1000, title: "Digital detox workshop", achieved: false },
-                { amount: 2000, title: "3-month support program", achieved: false },
-            ]
-        };
-
-        // Render functions
-        function renderDonorView() {
-            const template = `
-                <div class="grid donor-grid">
-                    <!-- Profile Card -->
-                    <div class="card">
-                        <img src="/api/placeholder/300/200" alt="Profile" style="width: 100%; height: 12rem; object-fit: cover; border-radius: 0.5rem;">
-                        <h2 class="mb-4">Sarah's Recovery Journey</h2>
-                        <p class="mb-4">Working to overcome gaming addiction and rebuild real-world connections</p>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-2">
-                                <span>Member since Jan 2024</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span>45 supporters</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span>15-day streak</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Donation Card -->
-                    <div class="card">
-                        <h2 class="mb-4">Support Sarah's Journey</h2>
-                        <div class="space-y-4">
-                            <div class="flex gap-2">
-                                <button 
-                                    class="btn ${state.donationType === 'one-time' ? 'btn-primary' : 'btn-secondary'}"
-                                    onclick="setDonationType('one-time')"
-                                >One-time</button>
-                                <button 
-                                    class="btn ${state.donationType === 'recurring' ? 'btn-primary' : 'btn-secondary'}"
-                                    onclick="setDonationType('recurring')"
-                                >Monthly</button>
-                            </div>
-                            <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
-                                ${[10, 25, 50].map(amount => `
-                                    <button 
-                                        class="btn ${state.donationAmount === amount ? 'btn-primary' : 'btn-secondary'}"
-                                        onclick="setDonationAmount(${amount})"
-                                    >$${amount}</button>
-                                `).join('')}
-                            </div>
-                            <div>
-                                <label>Custom Amount</label>
-                                <input 
-                                    type="number" 
-                                    value="${state.donationAmount}"
-                                    onchange="setDonationAmount(this.value)"
-                                    class="w-full p-2 border rounded-lg"
-                                >
-                            </div>
-                            <div>
-                                <label>Add a message of support</label>
-                                <textarea 
-                                    class="w-full p-2 border rounded-lg"
-                                    rows="3"
-                                    placeholder="Share your words of encouragement..."
-                                ></textarea>
-                            </div>
-                            <button class="btn btn-primary" style="width: 100%; background: #22c55e;">
-                                Donate $${state.donationAmount}
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Progress Card -->
-                    <div class="card">
-                        <h2 class="mb-4">Journey Progress</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span>$750 raised</span>
-                                    <span>Goal: $2000</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-bar-fill" style="width: 37.5%"></div>
-                                </div>
-                            </div>
-                            <div class="space-y-4">
-                                <h3>Milestones</h3>
-                                ${state.milestones.map(milestone => `
-                                    <div class="p-3 rounded-lg border ${milestone.achieved ? 'border-green-500 bg-green-50' : 'border-gray-200'}">
-                                        <div class="flex items-center gap-2">
-                                            <span>$${milestone.amount} - ${milestone.title}</span>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('mainContent').innerHTML = template;
-        }
-
-        function renderRecipientView() {
-            const template = `
-                <div class="grid recipient-grid">
-                    <div class="space-y-4">
-                        <div class="card">
-                            <h2 class="mb-4">Donation Analytics</h2>
-                            <div id="chart" style="height: 16rem;"></div>
-                        </div>
-                        <div class="card">
-                            <h2 class="mb-4">Recent Supporters</h2>
-                            <div class="space-y-4">
-                                ${['Alex', 'Maria', 'John'].map(name => `
-                                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                                        <div class="flex items-center gap-3">
-                                            <img src="/api/placeholder/40/40" alt="${name}" style="width: 2.5rem; height: 2.5rem; border-radius: 9999px;">
-                                            <div>
-                                                <div class="font-medium">${name}</div>
-                                                <div class="text-sm text-gray-600">Donated $25</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="card">
-                            <h2 class="mb-4">Quick Stats</h2>
-                            <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 1rem;">
-                                <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                    <div class="text-2xl font-bold text-blue-500">15</div>
-                                    <div class="text-sm text-gray-600">Day Streak</div>
-                                </div>
-                                <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                    <div class="text-2xl font-bold text-green-500">45</div>
-                                    <div class="text-sm text-gray-600">Supporters</div>
-                                </div>
-                                <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                    <div class="text-2xl font-bold text-purple-500">$750</div>
-                                    <div class="text-sm text-gray-600">Total Raised</div>
-                                </div>
-                                <div class="p-4 bg-gray-50 rounded-lg text-center">
-                                    <div class="text-2xl font-bold text-orange-500">8</div>
-                                    <div class="text-sm text-gray-600">Updates Posted</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <h2 class="mb-4">Post Update</h2>
-                            <div class="space-y-4">
-                                <textarea
-                                    class="w-full p-3 border rounded-lg"
-                                    rows="4"
-                                    placeholder="Share your progress with supporters..."
-                                ></textarea>
-                                <button class="btn btn-primary" style="width: 100%;">
-                                    Post Update
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('mainContent').innerHTML = template;
-        }
-
-        // Event handlers
-        function setView(newView) {
-            state.view = newView;
-            render();
-        }
-
-        function setDonationType(type) {
-            state.donationType = type;
-            render();
-        }
-
-        function setDonationAmount(amount) {
-            state.donationAmount = Number(amount);
-            render();
-        }
-
-        // Initial render
-        function render() {
-            if (state.view === 'donor') {
-                renderDonorView();
-            } else {
-                renderRecipientView();
-            }
-        }
-
-        // Event listeners
-        document.getElementById('donorViewBtn').addEventListener('click', () => setView('donor'));
-        document.getElementById('recipientViewBtn').addEventListener('click', () => setView('recipient'));
-
-        // Initial render
-        render();
-    </script>
-</body>
+    </body>
 </html>
